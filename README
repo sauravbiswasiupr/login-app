@@ -1,2 +1,2 @@
 An app that lets you login to your profile and add stuff. Implemented using redis, express, mongodb in node.js
-https://travis-ci.org/sauravbiswasiupr/login-app.svg?branch=master
+[![Build Status](https://travis-ci.org/sauravbiswasiupr/login-app.svg?branch=master)](https://travis-ci.org/sauravbiswasiupr/login-app)

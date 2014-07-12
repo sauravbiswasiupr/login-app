@@ -39,7 +39,9 @@ describe("Test the cache API", function() {
     });
 
     runs(function() {
-      cache.stop();
+      cache.stop(function(err, result) {
+        expect(err).toBeNull();
+      });
     });
 
     waitsFor(function() {

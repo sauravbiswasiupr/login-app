@@ -1,8 +1,11 @@
 {
   "name": "login-app", 
-  "dependencies": {
-    "express": "3.x.x",
-    "redis"  : "*"
+  "dependencies" : {
+    "express"    : "3.x.x",
+    "redis"      : "*", 
+    "nodemailer" : "0.7.x", 
+    "mongoose"   : "*", 
+    "node-cacher": "*"
    }, 
   "scripts": {
     "test": "jasmine-node cache-spec.js"

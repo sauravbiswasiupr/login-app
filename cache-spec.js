@@ -1,4 +1,4 @@
-var cache = require("./cache");
+var Cache = require("./cache");
 
 var cacheInfo = {
   key  : "TEST", 
@@ -6,11 +6,15 @@ var cacheInfo = {
 };
 
 describe("Test the cache API", function() {
+  var cache; 
+
   it("should set a key value and retrieve it", function() {
     var initialized = false;
     var set;
     var got;
+
     runs(function() {
+      cache = new Cache();
       cache.construct(function(err, result) {
         expect(err).toBeNull();
         initialized = true;

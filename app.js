@@ -120,7 +120,9 @@ app.post("/seeResults", function(req, res) {
       else {
         keys = cacheKeys;
         keys.forEach(function(key, pos) {
+         if (key.match(/.*\@.*/) === null) {
           cache.get(key, function(err, result) {
+
             var result = JSON.parse(result);
             userResponse[key] = [];
             for (var i = 0; i < myKeys.length; i++) {
@@ -128,6 +130,7 @@ app.post("/seeResults", function(req, res) {
                 userResponse[key].push(result[myKeys[i]]);
             }
           });
+         }
         });
         setTimeout(function() {
           fs.writeFile("data.txt", JSON.stringify(userResponse), function(err) {
@@ -147,8 +150,6 @@ app.get("/seeResults/plot", function(req, res) {
   child = exec("python createPlot.py", function(err, stdout, stderr) {
     if (err)
       console.log("Error while creating plot: ", err);
-    else
-      console.log("success");
   });
   res.sendfile("img.html");
 });

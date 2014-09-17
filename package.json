@@ -5,7 +5,8 @@
     "redis"      : "*", 
     "nodemailer" : "0.7.x", 
     "mongoose"   : "*", 
-    "node-cacher": "*"
+    "node-cacher": "*", 
+    "plotly"     : "*"
    }, 
   "scripts": {
     "test": "jasmine-node cache-spec.js"

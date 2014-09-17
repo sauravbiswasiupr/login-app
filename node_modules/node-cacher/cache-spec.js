@@ -7,6 +7,7 @@ var cacheInfo = {
 
 describe("Test the cache API", function() {
   var cache; 
+  var gotAllKeys = false; 
 
   it("should set a key value and retrieve it", function() {
     var initialized = false;
@@ -30,6 +31,18 @@ describe("Test the cache API", function() {
 
     waitsFor(function() {
       return got && set;
+    });
+
+    runs(function() {
+      cache.getAllKeys(function(err, result) {
+        expect(err).toBeNull();
+        expect(result).not.toBeNull();
+        gotAllKeys = true;
+      });
+    });
+
+    waitsFor(function() {
+      return gotAllKeys;
     });
 
     runs(function() {

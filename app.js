@@ -2,6 +2,10 @@ var express = require("express");
 var Cache   = require("node-cacher");
 var mailer  = require("./mailer.js");
 var crypto  = require("crypto");
+var plotly  = require("plotly")("Node.js-Demo-Account", 'dvlqkmw0zm');
+var fs      = require("fs");
+var exec    = require("child_process").exec;
+var child; 
 
 var token, secretKey;
 var route = "localhost:3000/signup";
@@ -87,17 +91,73 @@ app.get("/login/submitForm", function(req, res) {
 });
 
 app.post("/login/submitForm/results", function(req, res) {
-  cache.set({ key: secretKey, value: req.body }, 120000, function(err, result) {
+  cache.set({ key: secretKey, value: JSON.stringify(req.body) }, 120000, function(err, result) {
     if (err)
       console.log("Error: ", err);
     else
-      res.send(JSON.stringify(req.body) + "<br><form method='POST' action='/logout'><input type='submit' value='logout'></form>");
+      res.send("<h1>Thanks for your response. Your answers have been recorded</h1><br><form method='POST' action='/logout'><input type='submit' value='logout'></form>");
   });
 });
 
 app.post("/logout", function(req, res) {
   res.redirect("/");
   cache.stop(function(err, result) {});
+});
+
+app.post("/seeResults", function(req, res) {
+  var admEmail = req.body.email; 
+  var admName = admEmail.match(/.*\@/g)[0].slice(0, -1); 
+  var keys; 
+  var userResponse = {};
+  var myKeys = ["answer_1", "answer_2", "answer_3", "answer_4", "answer_5", "answer_6", "answer_7"];
+
+  if (admName !== "admin")
+    res.redirect("/");
+  else {
+    cache.getAllKeys(function(err, cacheKeys) {
+      if (err)
+        console.log(err);
+      else {
+        keys = cacheKeys;
+        keys.forEach(function(key, pos) {
+          cache.get(key, function(err, result) {
+            var result = JSON.parse(result);
+            userResponse[key] = [];
+            for (var i = 0; i < myKeys.length; i++) {
+              if (key !== "submit")
+                userResponse[key].push(result[myKeys[i]]);
+            }
+          });
+        });
+        setTimeout(function() {
+          fs.writeFile("data.txt", JSON.stringify(userResponse), function(err) {
+            if (err)
+              console.log("Error while writing to file: ", err);
+            else {
+              res.send("<h1>Welcome to your dashboard admin</h1><a href='/seeResults/plot'>See results</a>");
+            }
+          });
+        }, 3000);
+      }
+    });
+  }
+});
+
+app.get("/seeResults/plot", function(req, res) {
+  child = exec("python createPlot.py", function(err, stdout, stderr) {
+    if (err)
+      console.log("Error while creating plot: ", err);
+    else
+      console.log("success");
+  });
+  res.sendfile("img.html");
+});
+
+app.get("/admin", function(req, res) {
+  res.writeHead(200, {
+    "Content-Type": "text/html"
+  });
+  res.sendfile("admin.html");
 });
 
 app.listen(3000, "127.0.0.1");

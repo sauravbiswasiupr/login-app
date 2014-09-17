@@ -28,6 +28,17 @@ cache.prototype.get = function(key, cb) {
   });
 }; 
 
+cache.prototype.getAllKeys = function(cb) {
+  var self = this; 
+
+  self.client.keys("*", function(err, keys) {
+    if (err)
+      return cb(err);
+    else 
+      cb(null, keys);
+  });
+}; 
+
 cache.prototype.stop = function(cb) {
   var self = this;
 

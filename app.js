@@ -137,7 +137,7 @@ app.post("/seeResults", function(req, res) {
               res.send("<h1>Welcome to your dashboard admin</h1><a href='/seeResults/plot'>See results</a>");
             }
           });
-        }, 3000);
+        }, 1000);
       }
     });
   }

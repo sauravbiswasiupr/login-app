@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <title>Add new questionnaire</title>
+  </head>
+  <body ng-app>
+    <div class="container" ng-controller="MyController">
+      <ul>
+        <li ng-repeat="ques in questions">
+           <div class="search-field"> 
+              <p>{{ques}}</p>
+           </div>
+        </li>
+      </ul>
+
+      <form ng-submit="createQues()">
+        <input type="text" class="text-center" style="width: 50%" value="{{question}}" ng-model="question">
+        <input type="submit" class="btn btn-default" value="Add new Question">
+      </form>
+      <input type="submit" class="btn btn-default" value="Clear" ng-click="clearQues()">
+      <input type="submit" class="btn btn-default" value="Publish" ng-click="publishQues()">
+      <div class="search-field" ng-show="responsed">
+        Your response has been registered. 
+        <a href="http://localhost:3000">Go back to the main page</a>
+      </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script>
+      function MyController($scope, $http) {
+        $scope.questions = [];
+        $scope.responsed = false; 
+
+        $scope.clearQues = function() {
+          $scope.questions = [];
+        };
+
+        $scope.createQues = function() {
+          $scope.questions.push($scope.question);
+          $scope.question = "";
+        }; 
+
+        $scope.publishQues = function() {
+          $http.post("http://localhost:3000/createForm/postVals", { body: $scope.questions }).
+            success(function(data, status, headers, config) {
+              console.log("Success");
+              $scope.responsed = true; 
+            }).
+            error(function(data, status, headers, config) {
+              console.log("Error");
+            });
+        }; 
+      }
+    </script>
+  </body>
+</html>
+

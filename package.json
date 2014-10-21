@@ -8,7 +8,7 @@
     "nodemailer-smtp-transport": "*",
     "mongoose"                 : "*", 
     "node-cacher"              : "*", 
-    "plotly"                   : "*"
+    "lodash"                   : "*"
    }, 
   "scripts": {
     "test": "jasmine-node cache-spec.js"

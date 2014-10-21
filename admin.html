@@ -1,19 +1,20 @@
 <html>
   <head>
-    <title>Admin Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Login Page</title>
   </head>
   <body>
-    <h1>Administrative page</h1>
-    <br>
-    <div>
-      <p>Take a look at the dashboard</p>
+    <div class="welcome-banner">
+      <h2>Welcome to your dashboard admin</h2>
     </div>
-    <div>
-      <form name="adminLogin" method="POST" action="/seeResults">
-        Email<input type="text" name="email">
-        Password<input type="password" name="password">
-        <br>
-        <input type="submit" value="Admin Login">
-      </form>
+    <div class="welcome-message">
+      <p>Feel free to take a look at your dashboard. Here you can 
+        manage everything that you want. Create new questionnaires.
+        Upload new photos and much more.
+      </p>
+      <a href="http://localhost:3000/createForm">Create a new questionnaire</a>
     </div>
+    <a href="http://localhost:3000/seeResults">See the Results till now</a>
   </body>
+</html>
+

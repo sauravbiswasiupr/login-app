@@ -5,8 +5,8 @@ var mailer = {
     this.transport = nodemailer.createTransport("SMTP", {
       service: "Gmail", 
       auth   : {
-        user: USERNAME, 
-        pass: PASS
+        user: "YOUR EMAIL", 
+        pass: "YOUR PASSWORD"
       }
     }); 
   }, 

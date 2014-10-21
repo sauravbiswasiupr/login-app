@@ -1,36 +1,45 @@
 <html>
   <head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Login page</title>
-    <style type="text/css">
-    </style>
   </head>
   <body>
-    <h1>Login to your profile</h1>
-    <div>
-      <form name="login" method="post" action="/login">
-        Email<input type="text" name="email" /><br>
-        Password<input type="password" name="password" /><br>
-        <input type="submit" value="Login" />
-      </form>
-    </div>
-    <h1>New User signup</h1>
-    <div>
-      <form name="signup" method="post" action="/signup">
-        Email<input type="text" name="email" /><br>
-        Password<input type="password" name="password" />
-        <br>
-        <input type="submit" value="Signup" />
-      </form>
+    <div class="search-field">
+      <h2>Welcome user. Login or Signup</h2>
     </div>
     <br>
-    <h1>Admin Login</h1>
-    <div>
-      <form name="adminLogin" method="POST" action="seeResults">
-        Email<input type="text" name="email"><br>
-        Password<input type="password" name="password">
-        <br>
-        <input type="submit" value="Admin Login">
-      </form>
-    </div>
+    <div class="row">
+     <div class="col-xs-6 col-sm-6">
+       <div class="container" style="padding: 20px; width: 70%; border: 1px solid black; border-radius: 5px">
+         <form role="form"" method="post" action="/login">
+           <input type="text" class="form-control" placeholder="Email"  name="email"><br>
+           <input type="password" class="form-control" placeholder="Password"  name="password"><br>
+           <button class="btn btn-default" type="submit">Login</button>
+         </form>
+       </div>
+     </div>
+     <div class="col-xs-6 col-sm-4">
+       <div class="container" style="padding: 20px; width: 80%; border: 1px solid black; border-radius: 5px">
+          <form role="form" method="post" action="/signup">
+            <input type="text" class="form-control" name="email" placeholder="Email"><br>
+            <input type="password" class="form-control" name="password" placeholder="Password"><br>
+            <button class="btn btn-default" type="submit">Signup</button>
+          </form>
+       </div>
+      </div>
+  </div>
+  <br>
+  <div class="search-field">
+    <h2>Admin Login</h2>
+  </div>
+  <br>
+  <div class="container" style="width: 50%; padding: 50px; border: 1px solid black; border-radius: 5px">
+    <form role="form" method="POST" action="/admin">
+      <input type="text" class="form-control"  name="email" placeholder="Email"><br>
+      <input type="password" class="form-control" name="password" placeholder="Password"><br>
+      <button class="btn btn-default" type="submit">Login</button>
+    </form>
+  </div>
   </body>
 </html>
